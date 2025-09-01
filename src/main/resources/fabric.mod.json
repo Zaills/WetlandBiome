@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "wetland",
+  "version": "${version}",
+  "name": "wetland",
+  "description": "Add the wetland biome",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/wetland/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.zaills.wetland.client.WetlandDataGenerator"
+    ],
+    "client": [
+      "net.zaills.wetland.client.WetlandClient"
+    ],
+    "main": [
+      "net.zaills.wetland.Wetland"
+    ]
+  },
+  "mixins": [
+    "wetland.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
