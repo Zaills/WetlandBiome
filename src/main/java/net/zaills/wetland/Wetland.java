@@ -12,17 +12,6 @@ public class Wetland implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-//		BiomePlacement.addOverworld(WetlandBiome.WETLAND,
-//				new MultiNoiseUtil.NoiseHypercube(
-//					MultiNoiseUtil.ParameterRange.of(-0.11f,1f),
-//					MultiNoiseUtil.ParameterRange.of(1.0f),
-//					MultiNoiseUtil.ParameterRange.of(0.55f, 1f),
-//					MultiNoiseUtil.ParameterRange.of(-1f, 1f),
-//					MultiNoiseUtil.ParameterRange.of(0.0f),
-//					MultiNoiseUtil.ParameterRange.of(-0.45f, 0.2f),
-//					0L));
-
-		//BiomePlacement.addSubOverworld(BiomeKeys.SWAMP, WetlandBiome.WETLAND, CriterionBuilder.NEAR_INTERIOR);
 		ModSurfaceBuilders.init();
 		ModSurfaceBuilders.getBuilder().forEach(SurfaceGeneration::addSurfaceBuilder);
 

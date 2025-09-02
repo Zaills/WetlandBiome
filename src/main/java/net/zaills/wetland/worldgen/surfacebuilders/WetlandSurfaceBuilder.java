@@ -18,12 +18,14 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 	private final BlockState landMaterial;
 	private final BlockState topMaterial;
 	private final BlockState airMaterial;
+	private final BlockState mossMaterial;
 
-	public WetlandSurfaceBuilder(BlockState waterMaterial, BlockState landMaterial, BlockState topMaterial, BlockState airMaterial) {
+	public WetlandSurfaceBuilder(BlockState waterMaterial, BlockState landMaterial, BlockState topMaterial, BlockState airMaterial, BlockState mossMaterial) {
 		this.waterMaterial = waterMaterial;
 		this.landMaterial = landMaterial;
 		this.topMaterial = topMaterial;
 		this.airMaterial = airMaterial;
+		this.mossMaterial = mossMaterial;
 	}
 	@Override
 	public void generate(BiomeAccess biomeAccess, BlockColumn column, Random rand, Chunk chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
@@ -32,6 +34,8 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 
 		double waterHeight = NOISE.sample(x * 0.025, z * 0.05) * 3;
 		double landHeight = -waterHeight;
+
+		double mossNoise = NOISE.sample(x * 0.05, z * 0.05) * 10;
 
 		for (int h = 0; h < waterHeight; h++) {
 			column.setState(y, y < seaLevel ? waterMaterial : airMaterial);
@@ -51,6 +55,11 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 		if (y >= seaLevel) {
 			while (column.getState(y).isAir()) y--;
 			column.setState(y, topBlocks);
+		}
+
+		if (y < seaLevel + 3 && mossNoise > 4) {
+			while (column.getState(y).isAir() && column.getState(y).getBlock().equals(waterMaterial.getBlock())) y--;
+			column.setState(y, mossMaterial);
 		}
 	}
 

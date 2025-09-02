@@ -13,14 +13,11 @@ public class ModSurfaceBuilders {
 	public static void init() {
 		builder.put(Identifier.of(Wetland.MOD_ID, "surfece/wetland"),
 				(WetlandSurfaceBuilder) new WetlandSurfaceBuilder(
-//						Blocks.LIGHT_BLUE_STAINED_GLASS.getDefaultState(),
-//						Blocks.BROWN_STAINED_GLASS.getDefaultState(),
-//						Blocks.GREEN_STAINED_GLASS.getDefaultState(),
-//						Blocks.AIR.getDefaultState()
 						Blocks.WATER.getDefaultState(),
 						Blocks.DIRT.getDefaultState(),
 						Blocks.GRASS_BLOCK.getDefaultState(),
-						Blocks.AIR.getDefaultState()
+						Blocks.AIR.getDefaultState(),
+						Blocks.MOSS_BLOCK.getDefaultState()
 				).setBiomeKey(WetlandBiome.WETLAND));
 	}
 
