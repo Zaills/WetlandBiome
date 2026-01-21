@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "wetland",
   "description": "Add the wetland biome",
-  "authors": [],
+  "authors": [
+    "Zaills"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/wetland/icon.png",

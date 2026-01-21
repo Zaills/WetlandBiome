@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'fabric-loom' version '1.13-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -38,7 +38,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation("com.terraformersmc:biolith-fabric:${project.biolith_version}")
-    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:15.0.0"
+    modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:16.0.0"
 }
 
 processResources {
@@ -46,7 +46,7 @@ processResources {
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
     inputs.property "biolith_version", project.biolith_version
-    filteringCharset "UTF-8"
+    filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version,

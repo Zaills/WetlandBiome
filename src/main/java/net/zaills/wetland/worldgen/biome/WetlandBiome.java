@@ -6,9 +6,11 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.MusicType;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.EnvironmentAttributeMap;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
@@ -37,6 +39,7 @@ public class WetlandBiome {
 				.temperature(0.2F)
 				.downfall(0.7F)
 				.effects(createBiomeEffects())
+				.addEnvironmentAttributes(createEnvironmentAttributes())
 				.build();
 	}
 
@@ -98,14 +101,20 @@ public class WetlandBiome {
 
 	private static BiomeEffects createBiomeEffects() {
 		return new BiomeEffects.Builder()
-				.skyColor(0x78A7FF)
-				.fogColor(0xC0D8FF)
 				.waterColor(0x438a6f)
-				.waterFogColor(0x316451)
-				.fogColor(0x12638463)
 				.grassColor(0x365334)
 				.foliageColor(0x577539)
-				.music(MusicType.createIngameMusic(SoundEvents.MUSIC_OVERWORLD_SWAMP))
+				.grassColorModifier(BiomeEffects.GrassColorModifier.SWAMP)
+				.build();
+	}
+
+	private static EnvironmentAttributeMap createEnvironmentAttributes() {
+		return EnvironmentAttributeMap.builder()
+				.with(EnvironmentAttributes.SKY_COLOR_VISUAL, 0x78A7FF)
+				.with(EnvironmentAttributes.FOG_COLOR_VISUAL, 0xC0D8FF)
+				.with(EnvironmentAttributes.WATER_FOG_COLOR_VISUAL, 0x316451)
+				.with(EnvironmentAttributes.BACKGROUND_MUSIC_AUDIO, new BackgroundMusic(SoundEvents.MUSIC_OVERWORLD_SWAMP))
+				.with(EnvironmentAttributes.WATER_FOG_END_DISTANCE_VISUAL, 0.85f)
 				.build();
 	}
 }
