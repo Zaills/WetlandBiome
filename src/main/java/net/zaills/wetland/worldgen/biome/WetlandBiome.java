@@ -102,19 +102,16 @@ public class WetlandBiome {
 	private static BiomeSpecialEffects createBiomeEffects() {
 		return new BiomeSpecialEffects.Builder()
 				.waterColor(0x438a6f)
-				.grassColorOverride(0x365334)
+				.grassColorOverride(0x89b441)
 				.foliageColorOverride(0x577539)
-				.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP)
 				.build();
 	}
 
 	private static EnvironmentAttributeMap createEnvironmentAttributes() {
 		return EnvironmentAttributeMap.builder()
 				.set(EnvironmentAttributes.SKY_COLOR, 0x78A7FF)
-				.set(EnvironmentAttributes.FOG_COLOR, 0xC0D8FF)
 				.set(EnvironmentAttributes.WATER_FOG_COLOR, 0x316451)
 				.set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(SoundEvents.MUSIC_BIOME_SWAMP))
-				.set(EnvironmentAttributes.WATER_FOG_END_DISTANCE, 0.85f)
 				.build();
 	}
 }

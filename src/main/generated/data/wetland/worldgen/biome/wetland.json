@@ -7,10 +7,8 @@
         "sound": "minecraft:music.overworld.swamp"
       }
     },
-    "minecraft:visual/fog_color": "#c0d8ff",
     "minecraft:visual/sky_color": "#78a7ff",
-    "minecraft:visual/water_fog_color": "#316451",
-    "minecraft:visual/water_fog_end_distance": 0.85
+    "minecraft:visual/water_fog_color": "#316451"
   },
   "carvers": [
     "minecraft:cave",
@@ -20,8 +18,7 @@
   "downfall": 0.7,
   "effects": {
     "foliage_color": "#577539",
-    "grass_color": "#365334",
-    "grass_color_modifier": "swamp",
+    "grass_color": "#89b441",
     "water_color": "#438a6f"
   },
   "features": [
