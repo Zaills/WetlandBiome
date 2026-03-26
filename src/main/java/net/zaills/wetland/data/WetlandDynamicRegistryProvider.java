@@ -2,10 +2,10 @@ package net.zaills.wetland.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.zaills.wetland.Wetland;
 import net.zaills.wetland.worldgen.biome.WetlandBiome;
 
@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WetlandDynamicRegistryProvider extends FabricDynamicRegistryProvider {
-	public WetlandDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+	public WetlandDynamicRegistryProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
-	public static void buildRegistry(RegistryBuilder registryBuilder) {
-		registryBuilder.addRegistry(RegistryKeys.BIOME, WetlandBiome::bootstrap);
+	public static void buildRegistry(RegistrySetBuilder registryBuilder) {
+		registryBuilder.add(Registries.BIOME, WetlandBiome::bootstrap);
 	}
 
 	@Override
-	protected void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-		addAll(entries, registries.getOrThrow(RegistryKeys.BIOME), Wetland.MOD_ID);
+	protected void configure(HolderLookup.Provider registries, Entries entries) {
+		addAll(entries, registries.lookupOrThrow(Registries.BIOME), Wetland.MOD_ID);
 	}
 
 	@Override
@@ -32,9 +32,9 @@ public class WetlandDynamicRegistryProvider extends FabricDynamicRegistryProvide
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
-	public <T> List<RegistryEntry<T>> addAll(Entries entries, RegistryWrapper.Impl<T> registry, String modId) {
-		return registry.streamKeys()
-				.filter(tRegistryKey -> tRegistryKey.getValue().getNamespace().equals(modId))
+	public <T> List<Holder<T>> addAll(Entries entries, HolderLookup.RegistryLookup<T> registry, String modId) {
+		return registry.listElementIds()
+				.filter(tRegistryKey -> tRegistryKey.identifier().getNamespace().equals(modId))
 				.map(tRegistryKey -> entries.add(registry, tRegistryKey))
 				.toList();
 	}

@@ -2,13 +2,13 @@ package net.zaills.wetland.worldgen.surfacebuilders;
 
 import com.terraformersmc.biolith.api.surface.BiolithSurfaceBuilder;
 import com.terraformersmc.biolith.impl.noise.OpenSimplexNoise2;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.chunk.BlockColumn;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.BlockColumn;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 
@@ -28,8 +28,8 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 		this.mossMaterial = mossMaterial;
 	}
 	@Override
-	public void generate(BiomeAccess biomeAccess, BlockColumn column, Random rand, Chunk chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
-		vHeight = chunk.sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, x & 0xf, z & 0xf);
+	public void generate(BiomeManager biomeAccess, BlockColumn column, RandomSource rand, ChunkAccess chunk, Biome biome, int x, int z, int vHeight, int seaLevel) {
+		vHeight = chunk.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, x & 0xf, z & 0xf);
 		int y = vHeight;
 
 		double waterHeight = NOISE.sample(x * 0.025, z * 0.05) * 3;
@@ -38,7 +38,7 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 		double mossNoise = NOISE.sample(x * 0.05, z * 0.05) * 10;
 
 		for (int h = 0; h < waterHeight; h++) {
-			column.setState(y, y < seaLevel ? waterMaterial : airMaterial);
+			column.setBlock(y, y < seaLevel ? waterMaterial : airMaterial);
 			--y;
 		}
 
@@ -49,17 +49,17 @@ public class WetlandSurfaceBuilder extends BiolithSurfaceBuilder {
 			topBlocks = airMaterial;
 		}
 		for (int h = 0; h < landHeight; h++) {
-			column.setState(y, landBlocks);
+			column.setBlock(y, landBlocks);
 			y++;
 		}
 		if (y >= seaLevel) {
-			while (column.getState(y).isAir()) y--;
-			column.setState(y, topBlocks);
+			while (column.getBlock(y).isAir()) y--;
+			column.setBlock(y, topBlocks);
 		}
 
 		if (y < seaLevel + 3 && mossNoise > 4) {
-			while (column.getState(y).isAir() && column.getState(y).getBlock().equals(waterMaterial.getBlock())) y--;
-			column.setState(y, mossMaterial);
+			while (column.getBlock(y).isAir() && column.getBlock(y).getBlock().equals(waterMaterial.getBlock())) y--;
+			column.setBlock(y, mossMaterial);
 		}
 	}
 

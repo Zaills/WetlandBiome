@@ -1,7 +1,7 @@
 package net.zaills.wetland.worldgen.surfacebuilders;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.Blocks;
 import net.zaills.wetland.Wetland;
 import net.zaills.wetland.worldgen.biome.WetlandBiome;
 
@@ -11,13 +11,13 @@ public class ModSurfaceBuilders {
 	private static final HashMap<Identifier, WetlandSurfaceBuilder> builder = new HashMap<>(1);
 
 	public static void init() {
-		builder.put(Identifier.of(Wetland.MOD_ID, "surfece/wetland"),
+		builder.put(Identifier.fromNamespaceAndPath(Wetland.MOD_ID, "surfece/wetland"),
 				(WetlandSurfaceBuilder) new WetlandSurfaceBuilder(
-						Blocks.WATER.getDefaultState(),
-						Blocks.DIRT.getDefaultState(),
-						Blocks.GRASS_BLOCK.getDefaultState(),
-						Blocks.AIR.getDefaultState(),
-						Blocks.MOSS_BLOCK.getDefaultState()
+						Blocks.WATER.defaultBlockState(),
+						Blocks.DIRT.defaultBlockState(),
+						Blocks.GRASS_BLOCK.defaultBlockState(),
+						Blocks.AIR.defaultBlockState(),
+						Blocks.MOSS_BLOCK.defaultBlockState()
 				).setBiomeKey(WetlandBiome.WETLAND));
 	}
 
