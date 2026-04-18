@@ -103,7 +103,7 @@ public class WetlandBiome {
 				.waterColor(0x438a6f)
 				.waterFogColor(0x316451)
 				.fogColor(0x12638463)
-				.grassColor(0x365334)
+				.grassColor(0x89b441)
 				.foliageColor(0x577539)
 				.music(MusicType.createIngameMusic(SoundEvents.MUSIC_OVERWORLD_SWAMP))
 				.build();
