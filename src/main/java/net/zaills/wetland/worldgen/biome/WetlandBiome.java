@@ -102,9 +102,8 @@ public class WetlandBiome {
 	private static BiomeEffects createBiomeEffects() {
 		return new BiomeEffects.Builder()
 				.waterColor(0x438a6f)
-				.grassColor(0x365334)
+				.grassColor(0x89b441)
 				.foliageColor(0x577539)
-				.grassColorModifier(BiomeEffects.GrassColorModifier.SWAMP)
 				.build();
 	}
 
